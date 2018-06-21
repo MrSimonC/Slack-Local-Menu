@@ -2,14 +2,11 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-                "${workspaceFolder}/TiffinTime/TiffinTime.csproj"
-            ],
-            "problemMatcher": "$msCompile"
+            "label": "Compile Markdown",
+            "type": "shell",
+            "command": "markdown-it sample.md -o sample.html",
+            "group": "build",
+            "problemMatcher": []
         }
     ]
 }

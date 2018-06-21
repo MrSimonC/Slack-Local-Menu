@@ -11,18 +11,18 @@ namespace TiffinTime
     class WebHelper
     {
         HtmlWeb web = new HtmlWeb();
-
-        public string MenuGetOptionText(string url)
+        
+        public string MenuGetOptionText(string url, string xpath)
         {
             var doc = web.Load(url);
-            var htmlMenuOption = doc.DocumentNode.SelectSingleNode("//*[@id=\"product\"]/div[1]/div[3]/div[1]/p[1]").InnerText;
+            var htmlMenuOption = doc.DocumentNode.SelectSingleNode(xpath).InnerText;
             return HttpUtility.HtmlDecode(htmlMenuOption);
         }
 
-        public string GetMenuImageUrl(string url)
+        public string GetMenuImageUrl(string url, string xpath)
         {
             var doc = web.Load(url);
-            return doc.DocumentNode.SelectSingleNode("//*[@id=\"content\"]/div[1]/div/div/ul/li/a/img").Attributes["src"].Value;
+            return doc.DocumentNode.SelectSingleNode(xpath).Attributes["src"].Value;
         }
     }
 }

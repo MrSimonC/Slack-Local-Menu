@@ -13,14 +13,28 @@ namespace TiffinTime
             // URLs
             string meatOptionURL = "https://www.tiffintime.co.uk/collections/tiffin-time-lunches/products/meaty-option";
             string vegOptionURL = "https://www.tiffintime.co.uk/collections/tiffin-time-lunches/products/veggie-option";
-            string homepage = "https://www.tiffintime.co.uk/";
+            string optionXPath = "//*[@id=\"ProductSection-product-template\"]/div/div[2]/div[2]";
+            string menuImgUrl = "https://www.tiffintime.co.uk/pages/menu";
+            string menuImgXPath = "//*[@id=\"MainContent\"]/div/div/div/div[2]/img";
 
             // Get this week's menu
             var wh = new WebHelper();
-            string meatOption = wh.MenuGetOptionText(meatOptionURL).TrimEnd('\n');
-            string vegOption = wh.MenuGetOptionText(vegOptionURL).TrimEnd('\n');
-            string imageUrl = wh.GetMenuImageUrl(homepage);
+            try
+            {
+                string meatOption = wh.MenuGetOptionText(meatOptionURL, optionXPath).Trim();
+                string vegOption = wh.MenuGetOptionText(vegOptionURL, optionXPath).Trim();
+                string imageUrl = wh.GetMenuImageUrl(menuImgUrl, menuImgXPath);
+                SendResultsToChannel(meatOption, vegOption, imageUrl);
+            }
+            catch (Exception)
+            {
+                SendErrorToSimonOnly("Error trying to get Tiffintime menu options. They've likely changed the page again. Gaddamnit");
+                Environment.Exit(-1);
+            }
+        }
 
+        public static void SendResultsToChannel(string meatOption, string vegOption, string imageUrl)
+        {
             Credentials cred = new Credentials();
             string _channel = cred.channel;
             string _token = cred.token;
@@ -71,6 +85,21 @@ namespace TiffinTime
                     Timestamp = response.TimeStamp
                 });
             }
+        }
+
+        public static void SendErrorToSimonOnly(string message)
+        {
+            Credentials cred = new Credentials(dmSimonOnly: true);
+            string _channel = cred.channel;
+            string _token = cred.token;
+
+            // send
+            var slack = new SlackClientAPI(_token);
+            var response = slack.PostMessage("chat.postMessage", new Arguments() {
+                Channel = _channel,
+                Text = message
+            });
+            
         }
     }
 }
