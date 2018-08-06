@@ -11,7 +11,7 @@ namespace TiffinTime
         static void Main(string[] args)
         {
             // URLs
-            string meatOptionURL = "https://www.tiffintime.co.uk/collections/tiffin-time-lunches/products/meaty-product";
+            string meatOptionURL = "https://www.tiffintime.co.uk/collections/tiffin-time-lunches/products/meaty-option";
             string vegOptionURL = "https://www.tiffintime.co.uk/collections/tiffin-time-lunches/products/veggie-option";
             string optionXPath = "//*[@id=\"ProductSection-product-template\"]/div/div[2]/div[2]";
             string menuImgUrl = "https://www.tiffintime.co.uk/pages/menu";
