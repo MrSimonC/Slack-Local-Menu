@@ -14,8 +14,8 @@ namespace TiffinTime
             string meatOptionURL = "https://www.tiffintime.co.uk/collections/tiffin-time-lunches/products/meaty-option";
             string vegOptionURL = "https://www.tiffintime.co.uk/collections/tiffin-time-lunches/products/veggie-option";
             string optionXPath = "//*[@id=\"ProductSection-product-template\"]/div/div[2]/div[2]";
-            string menuImgUrl = "https://www.tiffintime.co.uk/pages/menu";
-            string menuImgXPath = "//*[@id=\"MainContent\"]/div/div/div/div[2]/img";
+            string menuImgUrl = "https://www.tiffintime.co.uk/collections/tiffin-time-lunches";
+            string menuImgXPath = "//*[@id=\"shopify-section-collection-template\"]/div/header/div[2]/div[1]/img";
 
             // Get this week's menu
             var wh = new WebHelper();
